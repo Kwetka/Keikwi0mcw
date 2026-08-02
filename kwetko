@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME IS COMMING</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+                url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Old_window.jpg') center/cover no-repeat fixed;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff41;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .content {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .gramophone {
+            max-width: 420px;
+            width: 85%;
+            height: auto;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 65, 0.4));
+            border-radius: 4px;
+        }
+
+        #countdown {
+            font-size: clamp(1.4rem, 4vw, 2.4rem);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 8px #00ff41;
+        }
+
+        .console {
+            background: #0a0a0a;
+            border: 2px solid #00ff41;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: left;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .console::before {
+            content: "TERMINAL v1.0";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #00ff41;
+            color: #000;
+            font-size: 12px;
+            padding: 4px 12px;
+            font-weight: bold;
+        }
+
+        .console-content {
+            margin-top: 28px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00ff41;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .bottom-text {
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ff41;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .gramophone {
+                max-width: 280px;
+            }
+            .console {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>GAME IS COMMING</h1>
+
+        <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/7/74/Gramophones_%28second_hand%29_ubt.JPG" 
+            alt="Gramophone" 
+            class="gramophone"
+        >
+
+        <div id="countdown">Загрузка...</div>
+
+        <div class="console">
+            <div class="console-content" id="console-text">
+> система инициализирована...
+> ожидание 07.08.2026 20:00
+> 
+
+<span class="cursor"></span>
+            </div>
+        </div>
+
+        <div class="bottom-text">I'M KWETKA</div>
+    </div>
+
+    <script>
+        const targetDate = new Date('2026-08-07T20:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = 'GAME IS HERE';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `${days}д ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
